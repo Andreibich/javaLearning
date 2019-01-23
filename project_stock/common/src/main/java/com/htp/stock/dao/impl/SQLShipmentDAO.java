@@ -61,6 +61,35 @@ public class SQLShipmentDAO implements ShipmentDAO {
             "operation_codes.operation_code_id = shipment.operation_code_id WHERE companies.company_name = ? AND " +
             "shipment.shipment_date >= ? AND shipment.shipment_date <= ?";
 
+    private static final String SELECT_RESULT_FOR_NOW = "select t1.a1, t1.a2, sum(t1.a3), t1.a4\n" +
+            "FROM\n" +
+            "(SELECT product_catalog.product_name as a1, product_catalog.product_unit as a2,  sum(receipt.receipt_quantity) as a3, receipt.receipt_price as a4\n" +
+            "FROM receipt\n" +
+            "Inner JOIN product_catalog ON  product_catalog.product_id = receipt.product_catalog_id \n" +
+            "GROUP BY product_catalog.product_id, receipt.receipt_price \n" +
+            "UNION\n" +
+            "SELECT product_catalog.product_name, product_catalog.product_unit, -sum(shipment.shipment_quantity), shipment.shipment_price \n" +
+            "FROM shipment\n" +
+            "Inner JOIN product_catalog ON  product_catalog.product_id = shipment.product_catalog_id \n" +
+            "GROUP BY product_catalog.product_id) as t1\n" +
+            "GROUP BY t1.a1, t1.a2, t1.a4";
+
+    private static final String SELECT_RESULT_BY_DATE = "select t1.a1, t1.a2, sum(t1.a3), t1.a4\n" +
+            "FROM\n" +
+            "(SELECT product_catalog.product_name as a1, product_catalog.product_unit as a2,  sum(receipt.receipt_quantity) as a3, receipt.receipt_price as a4\n" +
+            "FROM receipt\n" +
+            "Inner JOIN product_catalog ON  product_catalog.product_id = receipt.product_catalog_id \n" +
+            "WHERE receipt.receipt_date <= ?" +
+            "GROUP BY product_catalog.product_id, receipt.receipt_price \n" +
+            "UNION\n" +
+            "SELECT product_catalog.product_name, product_catalog.product_unit, -sum(shipment.shipment_quantity), shipment.shipment_price \n" +
+            "FROM shipment\n" +
+            "Inner JOIN product_catalog ON  product_catalog.product_id = shipment.product_catalog_id \n" +
+            "WHERE shipment.shipment_date <= ?" +
+            "GROUP BY product_catalog.product_id) as t1\n" +
+            "GROUP BY t1.a1, t1.a2, t1.a4";
+
+
     private static final String CREATE_NEW_SHIPMENT = "INSERT INTO shipment (operation_code_id, shipment_date, " +
             "product_catalog_id, shipment_quantity, shipment_price, recepient_company_id, shipment_user_id, " +
             "invoice_number, proxy_number, recepient_employee_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -112,7 +141,8 @@ public class SQLShipmentDAO implements ShipmentDAO {
     public boolean delete(Integer id) throws DaoException {
         return false;
     }
-//    operation_code_id, shipment_date, " +
+
+    //    operation_code_id, shipment_date, " +
 //            "product_catalog_id, shipment_quantity, shipment_price, recepient_company_id, shipment_user_id, " +
 //            "invoice_number, proxy_number, recepient_employee_name
     @Override
@@ -173,6 +203,7 @@ public class SQLShipmentDAO implements ShipmentDAO {
             ResultSet set = statement.executeQuery();
 
             if (set.next()) {
+//TODO
                 return getEntry(set);
             } else {
                 return null;
@@ -192,6 +223,44 @@ public class SQLShipmentDAO implements ShipmentDAO {
             ResultSet set = statement.executeQuery();
 
             if (set.next()) {
+                //TODO
+                return getEntry(set);
+            } else {
+                return null;
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException("Exception", e);
+        }
+    }
+
+    @Override
+    public Shipment findResult() throws DaoException {
+        try (Connection connect = pool.getConnection();
+             PreparedStatement statement = connect.prepareStatement(SELECT_RESULT_FOR_NOW)) {
+            ResultSet set = statement.executeQuery();
+
+            if (set.next()) {
+                //TODO
+                return getEntry(set);
+            } else {
+                return null;
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException("Exception", e);
+        }
+    }
+
+    @Override
+
+    public Shipment findResultDate(Date date) throws DaoException {
+        try (Connection connect = pool.getConnection();
+             PreparedStatement statement = connect.prepareStatement(SELECT_RESULT_BY_DATE)) {
+            statement.setDate(1, date);
+            statement.setDate(2, date);
+            ResultSet set = statement.executeQuery();
+
+            if (set.next()) {
+                //TODO
                 return getEntry(set);
             } else {
                 return null;
@@ -220,4 +289,14 @@ public class SQLShipmentDAO implements ShipmentDAO {
             throw new DaoException("Exception", e);
         }
     }
+
+//    public void closePrepareStatement(PreparedStatement ps) {
+//        if (ps != null) {
+//            try {
+//                ps.close();
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 }

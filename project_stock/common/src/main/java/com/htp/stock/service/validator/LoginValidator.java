@@ -39,11 +39,11 @@ public class LoginValidator implements ValidatorInterface<User> {
      */
     @Override
     public boolean isValid(User user) {
-        String idRoom = String.valueOf(user.getLogin());
-        String cost = String.valueOf(user.getPassword());
+        String loginValid = String.valueOf(user.getLogin());
+        String passwordValid = String.valueOf(user.getPassword());
 
-        Matcher matcherLogin = patternLogin.matcher(idRoom);
-        Matcher matcherPassword = patternPassword.matcher(cost);
+        Matcher matcherLogin = patternLogin.matcher(loginValid);
+        Matcher matcherPassword = patternPassword.matcher(passwordValid);
 
         return matcherLogin.find() &
                 matcherPassword.find();

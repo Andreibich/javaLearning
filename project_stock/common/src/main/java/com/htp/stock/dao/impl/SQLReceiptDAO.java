@@ -139,6 +139,7 @@ public class SQLReceiptDAO implements ReceiptDAO {
             ResultSet set = statement.executeQuery();
 
             if (set.next()) {
+                //TODO
                 return getEntry(set);
             } else {
                 return null;
@@ -158,6 +159,7 @@ public class SQLReceiptDAO implements ReceiptDAO {
             ResultSet set = statement.executeQuery();
 
             if (set.next()) {
+                //TODO
                 return getEntry(set);
             } else {
                 return null;

@@ -13,4 +13,10 @@ public interface ShipmentDAO extends GenericDAO<Shipment, Integer>{
 
     Shipment findByCompanyNameAndPeriod(String companyName, Date dateBeginning, Date dateEnd) throws DaoException;
 
+    Shipment findResult() throws DaoException;
+
+    Shipment findResultDate(Date date) throws DaoException;
+
+
+
 }

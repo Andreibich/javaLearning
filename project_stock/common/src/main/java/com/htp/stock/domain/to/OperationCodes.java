@@ -33,4 +33,31 @@ public class OperationCodes {
     public void setPurpose(String purpose) {
         this.purpose = purpose;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        OperationCodes that = (OperationCodes) o;
+
+        if (operationCodeId != null ? !operationCodeId.equals(that.operationCodeId) : that.operationCodeId != null)
+            return false;
+        return purpose != null ? purpose.equals(that.purpose) : that.purpose == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = operationCodeId != null ? operationCodeId.hashCode() : 0;
+        result = 31 * result + (purpose != null ? purpose.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "OperationCodes{" +
+                "operationCodeId=" + operationCodeId +
+                ", purpose='" + purpose + '\'' +
+                '}';
+    }
 }
