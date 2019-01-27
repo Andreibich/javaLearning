@@ -24,9 +24,12 @@ public class SQLUserDao implements UserDAO {
     private static final String EMAIL = "email";
     private static final String CREATION_DATE = "creation_date";
     private static final String TYPE = "type";
+    private static final String LAST_ID = "lastId";
 
     private static final ConnectionPool pool = ConnectionPool.getInstance();
 
+
+    private static final String LAST_INSERT_ID = "SELECT last_insert_id() as lastId";
     private static final String SELECT_BY_ID = "SELECT * FROM user WHERE user_id = ?";
     private static final String SELECT_BY_NAME = "SELECT * FROM user WHERE name = ?";
     private static final String SELECT_BY_SURNAME = "SELECT * FROM user WHERE surname = ?";
@@ -70,7 +73,7 @@ public class SQLUserDao implements UserDAO {
             if (set.next()) {
                 return getEntry(set);
             } else {
-                return null;
+                throw new SQLException ("SQL Exception");
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException("Exception", e);
@@ -105,10 +108,10 @@ public class SQLUserDao implements UserDAO {
         return userList;
     }
 
-    public User findById(Integer id) throws DaoException {
+    public User findById(Long id) throws DaoException {
         try (Connection connect = pool.getConnection();
              PreparedStatement statement = connect.prepareStatement(SELECT_BY_ID)) {
-            statement.setInt(1, id);
+            statement.setInt(1, id.intValue());
             ResultSet set = statement.executeQuery();
 
             if (set.next()) {
@@ -121,12 +124,11 @@ public class SQLUserDao implements UserDAO {
         }
     }
 
-    public boolean delete(Integer id) throws DaoException {
+    public boolean delete(Long id) throws DaoException {
         try (Connection connect = pool.getConnection();
              PreparedStatement statement = connect.prepareStatement(DELETE_USER)) {
             statement.setLong(1, id);
             statement.executeUpdate();
-            ResultSet set = statement.executeQuery();
             return true;
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException("Exception", e);
@@ -137,7 +139,8 @@ public class SQLUserDao implements UserDAO {
 
     public int create(User entity) throws DaoException {
         try (Connection connect = pool.getConnection();
-             PreparedStatement statement = connect.prepareStatement(CREATE_NEW_USER)) {
+             PreparedStatement statement = connect.prepareStatement(CREATE_NEW_USER);
+             PreparedStatement statementThird = connect.prepareStatement(LAST_INSERT_ID)) {
             statement.setString(1, entity.getUserName());
             statement.setString(2, entity.getSurname());
             statement.setString(3, entity.getLogin());
@@ -146,16 +149,18 @@ public class SQLUserDao implements UserDAO {
             statement.setDate(6, entity.getCreationDate());
             statement.setString(7, entity.getType());
             statement.executeUpdate();
-            ResultSet set = statement.executeQuery();
 
-            return getEntry(set).getUserId().intValue();
+            ResultSet set = statementThird.executeQuery();
+
+            set.next();
+            return set.getInt(LAST_ID);
 
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException("Exception", e);
         }
     }
 
-    public Integer update(User entity) throws DaoException {
+    public Long update(User entity) throws DaoException {
         try (Connection connect = pool.getConnection();
              PreparedStatement statement = connect.prepareStatement(UPDATE_USER)) {
             statement.setLong(1, entity.getUserId());
@@ -164,7 +169,7 @@ public class SQLUserDao implements UserDAO {
             statement.executeUpdate();
             ResultSet set = statement.executeQuery();
 
-            return getEntry(set).getUserId().intValue();
+            return getEntry(set).getUserId();
 
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException("Exception", e);

@@ -6,6 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CompaniesValidator implements ValidatorInterface<Companies> {
+
     private static final ValidatorInterface<Companies> instance = new CompaniesValidator();
 
     private CompaniesValidator() {
@@ -39,4 +40,5 @@ public class CompaniesValidator implements ValidatorInterface<Companies> {
                 matcherCity.find() &
                 matcherAddress.find();
     }
+
 }

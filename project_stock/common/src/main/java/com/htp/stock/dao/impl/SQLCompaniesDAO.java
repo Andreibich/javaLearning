@@ -29,7 +29,7 @@ public class SQLCompaniesDAO implements CompaniesDAO {
     private static final String SELECT_ALL = "SELECT * FROM companies ";
 
     private static final String CREATE_NEW_COMPANY = "INSERT INTO companies(company_name, city, address) " +
-            "VALUES ('?', '?', '?')";
+            "VALUES (?, ?, ?)";
 
 
 
@@ -88,7 +88,6 @@ public class SQLCompaniesDAO implements CompaniesDAO {
             statement.setString(1, entity.getCompanyName());
             statement.setString(2, entity.getCity());
             statement.setString(3, entity.getAddress());
-            statement.executeUpdate();
             ResultSet set = statement.executeQuery();
 
             return getEntry(set).getCompanyId().intValue();

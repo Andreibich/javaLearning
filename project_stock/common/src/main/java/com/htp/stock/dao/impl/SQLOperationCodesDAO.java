@@ -24,7 +24,7 @@ public class SQLOperationCodesDAO implements OperationCodesDAO {
     private static final String SELECT_BY_PURPOSE = "SELECT * FROM operation_codes WHERE purpose = ?";
     private static final String SELECT_ALL = "SELECT * FROM operation_codes";
 
-    private static final String CREATE_NEW_OPERATION_CODE = "INSERT INTO operation_codes(purpose) VALUES ('?')";
+    private static final String CREATE_NEW_OPERATION_CODE = "INSERT INTO operation_codes(purpose) VALUES (?)";
 
     public SQLOperationCodesDAO() {
     }

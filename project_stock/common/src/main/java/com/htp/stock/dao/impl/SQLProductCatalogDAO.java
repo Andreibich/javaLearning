@@ -27,7 +27,7 @@ public class SQLProductCatalogDAO implements ProductCatalogDAO {
     private static final String SELECT_ALL = "SELECT * FROM product_catalog";
 
     private static final String CREATE_NEW_PRODUCT = "INSERT INTO product_catalog(product_name, product_unit) " +
-            "VALUES ('?','?')";
+            "VALUES (?,?)";
 
     public SQLProductCatalogDAO() {
     }

@@ -9,7 +9,7 @@ import com.htp.stock.domain.to.User;* Provides specific method with {@link User}
 import com.htp.stock.domain.to.User;
 import com.htp.stock.exceptions.DaoException;
 
-public interface UserDAO extends GenericDAO <User, Integer> {
+public interface UserDAO extends GenericDAO <User, Long> {
   /**
           * Method get {@link User} object from database by login and password
    *

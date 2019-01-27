@@ -18,7 +18,7 @@ public class Test {
         UserDAO userDao = factory.getUserDao();
         CompaniesDAO companiesDao = factory.getCompaniesDao();
         try {
-            userDao.findById(2);
+            userDao.findById(2L);
             userDao.getUserNode("12q", "12qw");
             userDao.findAll();
             companiesDao.findById(1);

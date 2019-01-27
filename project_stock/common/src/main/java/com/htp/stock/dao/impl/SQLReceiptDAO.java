@@ -67,7 +67,7 @@ public class SQLReceiptDAO implements ReceiptDAO {
 
 
     @Override
-    public List findAll() throws DaoException {
+    public List<Receipt> findAll() throws DaoException {
         List<Receipt> receiptList = new ArrayList<>();
         try (Connection connect = pool.getConnection();
              PreparedStatement statement = connect.prepareStatement(SELECT_ALL)) {
@@ -131,26 +131,26 @@ public class SQLReceiptDAO implements ReceiptDAO {
     }
 
     @Override
-    public Receipt findByPeriod(Date dateBeginning, Date dateEnd) throws DaoException {
+    public List<Receipt> findByPeriod(Date dateBeginning, Date dateEnd) throws DaoException {
+        List<Receipt> receiptList = new ArrayList<>();
         try (Connection connect = pool.getConnection();
              PreparedStatement statement = connect.prepareStatement(SELECT_BY_PERIOD)) {
             statement.setDate(1, dateBeginning);
             statement.setDate(2, dateEnd);
             ResultSet set = statement.executeQuery();
 
-            if (set.next()) {
-                //TODO
-                return getEntry(set);
-            } else {
-                return null;
+            while (set.next()) {
+                receiptList.add(getEntry(set));
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException("Exception", e);
         }
+        return receiptList;
     }
 
     @Override
-    public Receipt findByProductNameAndPeriod(String productName, Date dateBeginning, Date dateEnd) throws DaoException {
+    public List<Receipt> findByProductNameAndPeriod(String productName, Date dateBeginning, Date dateEnd) throws DaoException {
+        List<Receipt> receiptList = new ArrayList<>();
         try (Connection connect = pool.getConnection();
              PreparedStatement statement = connect.prepareStatement(SELECT_BY_PRODUCT_NAME_AND_PERIOD)) {
             statement.setString(1, productName);
@@ -158,19 +158,18 @@ public class SQLReceiptDAO implements ReceiptDAO {
             statement.setDate(3, dateEnd);
             ResultSet set = statement.executeQuery();
 
-            if (set.next()) {
-                //TODO
-                return getEntry(set);
-            } else {
-                return null;
+            while (set.next()) {
+                receiptList.add(getEntry(set));
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException("Exception", e);
         }
+        return receiptList;
     }
 
     @Override
-    public Receipt findByCompanyNameAndPeriod(String companyName, Date dateBeginning, Date dateEnd) throws DaoException {
+    public List<Receipt> findByCompanyNameAndPeriod(String companyName, Date dateBeginning, Date dateEnd) throws DaoException {
+        List<Receipt> receiptList = new ArrayList<>();
         try (Connection connect = pool.getConnection();
              PreparedStatement statement = connect.prepareStatement(SELECT_BY_COMPANY_NAME_AND_PERIOD)) {
             statement.setString(1, companyName);
@@ -178,14 +177,13 @@ public class SQLReceiptDAO implements ReceiptDAO {
             statement.setDate(3, dateEnd);
             ResultSet set = statement.executeQuery();
 
-            if (set.next()) {
-                return getEntry(set);
-            } else {
-                return null;
+            while (set.next()) {
+                receiptList.add(getEntry(set));
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException("Exception", e);
         }
+        return receiptList;
     }
 
     private Receipt getEntry(ResultSet set) throws DaoException {

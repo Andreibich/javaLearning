@@ -176,98 +176,89 @@ public class SQLShipmentDAO implements ShipmentDAO {
     }
 
     @Override
-    public Shipment findByPeriod(Date dateBeginning, Date dateEnd) throws DaoException {
+    public List<Shipment> findByPeriod(Date dateBeginning, Date dateEnd) throws DaoException {
+        List<Shipment> shipmentList = new ArrayList<>();
         try (Connection connect = pool.getConnection();
              PreparedStatement statement = connect.prepareStatement(SELECT_BY_PERIOD)) {
             statement.setDate(1, dateBeginning);
             statement.setDate(2, dateEnd);
             ResultSet set = statement.executeQuery();
-
-            if (set.next()) {
-                return getEntry(set);
-            } else {
-                return null;
+            while (set.next()) {
+                shipmentList.add(getEntry(set));
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException("Exception", e);
         }
+        return shipmentList;
     }
 
     @Override
-    public Shipment findByProductNameAndPeriod(String productName, Date dateBeginning, Date dateEnd) throws DaoException {
+    public List<Shipment> findByProductNameAndPeriod(String productName, Date dateBeginning, Date dateEnd) throws DaoException {
+        List<Shipment> shipmentList = new ArrayList<>();
         try (Connection connect = pool.getConnection();
              PreparedStatement statement = connect.prepareStatement(SELECT_BY_PRODUCT_NAME_AND_PERIOD)) {
             statement.setString(1, productName);
             statement.setDate(2, dateBeginning);
             statement.setDate(3, dateEnd);
             ResultSet set = statement.executeQuery();
-
-            if (set.next()) {
-//TODO
-                return getEntry(set);
-            } else {
-                return null;
+            while (set.next()) {
+                shipmentList.add(getEntry(set));
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException("Exception", e);
         }
+        return shipmentList;
     }
 
     @Override
-    public Shipment findByCompanyNameAndPeriod(String companyName, Date dateBeginning, Date dateEnd) throws DaoException {
+    public List<Shipment> findByCompanyNameAndPeriod(String companyName, Date dateBeginning, Date dateEnd) throws DaoException {
+        List<Shipment> shipmentList = new ArrayList<>();
         try (Connection connect = pool.getConnection();
              PreparedStatement statement = connect.prepareStatement(SELECT_BY_COMPANY_NAME_AND_PERIOD)) {
             statement.setString(1, companyName);
             statement.setDate(2, dateBeginning);
             statement.setDate(3, dateEnd);
             ResultSet set = statement.executeQuery();
-
-            if (set.next()) {
-                //TODO
-                return getEntry(set);
-            } else {
-                return null;
+            while (set.next()) {
+                shipmentList.add(getEntry(set));
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException("Exception", e);
         }
+        return shipmentList;
     }
 
     @Override
-    public Shipment findResult() throws DaoException {
+    public List<Shipment> findResult() throws DaoException {
+        List<Shipment> shipmentList = new ArrayList<>();
         try (Connection connect = pool.getConnection();
              PreparedStatement statement = connect.prepareStatement(SELECT_RESULT_FOR_NOW)) {
             ResultSet set = statement.executeQuery();
-
-            if (set.next()) {
-                //TODO
-                return getEntry(set);
-            } else {
-                return null;
+            while (set.next()) {
+                shipmentList.add(getEntry(set));
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException("Exception", e);
         }
+        return shipmentList;
     }
 
     @Override
 
-    public Shipment findResultDate(Date date) throws DaoException {
+    public List<Shipment> findResultDate(Date date) throws DaoException {
+        List<Shipment> shipmentList = new ArrayList<>();
         try (Connection connect = pool.getConnection();
              PreparedStatement statement = connect.prepareStatement(SELECT_RESULT_BY_DATE)) {
             statement.setDate(1, date);
             statement.setDate(2, date);
             ResultSet set = statement.executeQuery();
-
-            if (set.next()) {
-                //TODO
-                return getEntry(set);
-            } else {
-                return null;
+            while (set.next()) {
+                shipmentList.add(getEntry(set));
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException("Exception", e);
         }
+        return shipmentList;
     }
 
     private Shipment getEntry(ResultSet set) throws DaoException {
