@@ -19,11 +19,12 @@ import javax.servlet.http.HttpSession;
 public class LoginCommand implements CommandInterface {
 
     private static final UserService SERVICE = UserServiceImpl.getInstance();
-//    private static final PagesConfigManager MANAGER = PagesConfigManager.getInstance();
+    //    private static final PagesConfigManager MANAGER = PagesConfigManager.getInstance();
     private static final String LOGIN = "login";
     private static final String PASSWORD = "password";
     private static final String ADMIN_ROLE = "admin";
-    private static final String CLIENT_ROLE = "client";
+    private static final String USER_ROLE = "user";
+    private static final String VIEWER_ROLE = "viewer";
     private static final String ERROR_FLAG = "errorFlag";
     private static final int ERROR_FLAG_VALUE = 1;
     private static final String ACTION = "action";
@@ -71,24 +72,36 @@ public class LoginCommand implements CommandInterface {
                 request.setAttribute(ERROR_FLAG, ERROR_FLAG_VALUE);// одна из возможных реализаций error message в
                 request.setAttribute(ACTION, FORWARD_ACTION_ATTRIBUTE);
                 page = PagePath.INDEX;
+
             } else {
-                if (user.getType().equals(ADMIN_ROLE)) {
+                if (user.getType().toLowerCase().equals(ADMIN_ROLE)) {
                     User admin = new User();
                     admin.setPassword(user.getPassword());
                     admin.setLogin(user.getLogin());
                     admin.setType(user.getType());
                     session.setAttribute(ADMIN_ROLE, admin);
                     page = PagePath.ADMIN;
-                } else {
-                    User client = new User();
-                    client.setType(user.getType());
-                    client.setLogin(user.getLogin());
-                    client.setPassword(user.getPassword());
-                    client.setUserId(user.getUserId());
 
-                    session.setAttribute(CLIENT_ROLE, client);
+                } else if (user.getType().toLowerCase().equals(USER_ROLE)) {
+                    User userNew = new User();
+                    userNew.setType(user.getType());
+                    userNew.setLogin(user.getLogin());
+                    userNew.setPassword(user.getPassword());
+                    userNew.setUserId(user.getUserId());
+                    session.setAttribute(USER_ROLE, userNew);
                     page = PagePath.RESULT;
+
+                } else {
+                    User viewer = new User();
+                    viewer.setType(user.getType());
+                    viewer.setLogin(user.getLogin());
+                    viewer.setPassword(user.getPassword());
+                    viewer.setUserId(user.getUserId());
+                    session.setAttribute(VIEWER_ROLE, viewer);
+                    page = PagePath.RESULT_VIEWER;
                 }
+
+
                 request.setAttribute(ACTION, REDIRECT_ACTION_ATTRIBUTE);
             }
 //        } catch (ValidationException e) {
@@ -103,7 +116,7 @@ public class LoginCommand implements CommandInterface {
     }
 
     public enum PagePath {
-        ADMIN, RESULT, INDEX
+        ADMIN, RESULT, INDEX, RESULT_VIEWER
     }
 }
 

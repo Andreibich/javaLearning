@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
-        * Performs processing requests from browser and the responses to browser
-        */
+ * Performs processing requests from browser and the responses to browser
+ */
 public class FrontController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -38,9 +38,10 @@ public class FrontController extends HttpServlet {
     }
 
     /**
-            * It determines which team will be carried out and what actions will be implemented
+     * It determines which team will be carried out and what actions will be implemented
      * during the transition between pages in accordance with the request (forward or sendRedirect)
-     * @param request HttpServletRequest
+     *
+     * @param request  HttpServletRequest
      * @param response HttpServletResponse
      * @throws ServletException
      * @throws IOException
@@ -48,17 +49,15 @@ public class FrontController extends HttpServlet {
     private void doRequest(HttpServletRequest request,
                            HttpServletResponse response) throws ServletException, IOException {
         String page;
-        System.out.println("________________________________________________________________________________________");
         CommandInterface action = helper.getCommand(request);
 //        request.getSession().setAttribute("name", "Andrey");
-        if(action != null) {
+        if (action != null) {
             try {
                 page = action.execute(request, response);
 
-                if((request.getAttribute(ACTION)).equals(REDIRECT_ATTRIBUTE)) {
+                if ((request.getAttribute(ACTION)).equals(REDIRECT_ATTRIBUTE)) {
                     response.sendRedirect(getServletContext().getContextPath() + page);
-                }
-                else {
+                } else {
                     RequestDispatcher dispatcher = request.getRequestDispatcher(page);
                     if (dispatcher != null) {
                         dispatcher.forward(request, response);
