@@ -11,7 +11,7 @@ import com.htp.stock.dao.impl.SQLOperationCodesDAO;
 import com.htp.stock.dao.impl.SQLProductCatalogDAO;
 import com.htp.stock.dao.impl.SQLReceiptDAO;
 import com.htp.stock.dao.impl.SQLShipmentDAO;
-import com.htp.stock.dao.impl.SQLUserDao;
+import com.htp.stock.dao.impl.SQLUserDAO;
 
 public class SQLDaoFactory extends DaoFactory {
 
@@ -26,7 +26,7 @@ public class SQLDaoFactory extends DaoFactory {
 
     @Override
     public UserDAO getUserDao() {
-        return SQLUserDao.getInstance();
+        return SQLUserDAO.getInstance();
     }
 
     @Override

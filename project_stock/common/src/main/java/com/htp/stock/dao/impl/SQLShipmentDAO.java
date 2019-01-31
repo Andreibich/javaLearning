@@ -146,7 +146,7 @@ public class SQLShipmentDAO implements ShipmentDAO {
 //            "product_catalog_id, shipment_quantity, shipment_price, recepient_company_id, shipment_user_id, " +
 //            "invoice_number, proxy_number, recepient_employee_name
     @Override
-    public int create(Shipment entity) throws DaoException {
+    public Long create(Shipment entity) throws DaoException {
         try (Connection connect = pool.getConnection();
              PreparedStatement statement = connect.prepareStatement(CREATE_NEW_SHIPMENT)) {
             statement.setInt(1, entity.getOperationCodeId());
@@ -163,7 +163,7 @@ public class SQLShipmentDAO implements ShipmentDAO {
             statement.executeUpdate();
             ResultSet set = statement.executeQuery();
 
-            return getEntry(set).getShipmentId().intValue();
+            return getEntry(set).getShipmentId();
 
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException("Exception", e);

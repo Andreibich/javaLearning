@@ -36,8 +36,8 @@ public class ShipmentServiceImpl implements ShipmentService {
         try {
             ShipmentDAO shipmentDao = factory.getShipmentDao();
             if (VALIDATE.isValid(shipment)) {
-                Integer shipmentLastID = shipmentDao.create(shipment);
-                return shipmentLastID.longValue();
+                Long shipmentLastID = shipmentDao.create(shipment);
+                return shipmentLastID;
             } else {
                 throw new ValidationException("Validation Exception");
             }

@@ -35,8 +35,8 @@ public class ProductCatalogServiceImpl implements ProductCatalogService {
         try {
             ProductCatalogDAO productCatalogDao = factory.getProductCatalogDao();
             if (VALIDATE.isValid(productCatalog)) {
-                Integer companyLastID = productCatalogDao.create(productCatalog);
-                return companyLastID.longValue();
+                Long companyLastID = productCatalogDao.create(productCatalog);
+                return companyLastID;
             } else {
                 throw new ValidationException("Validation Exception");
             }

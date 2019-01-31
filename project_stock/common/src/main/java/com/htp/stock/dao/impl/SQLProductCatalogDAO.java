@@ -78,7 +78,7 @@ public class SQLProductCatalogDAO implements ProductCatalogDAO {
     }
 
     @Override
-    public int create(ProductCatalog entity) throws DaoException {
+    public Long create(ProductCatalog entity) throws DaoException {
         try (Connection connect = pool.getConnection();
              PreparedStatement statement = connect.prepareStatement(CREATE_NEW_PRODUCT)) {
             statement.setString(1, entity.getProductName());
@@ -86,7 +86,7 @@ public class SQLProductCatalogDAO implements ProductCatalogDAO {
             statement.executeUpdate();
             ResultSet set = statement.executeQuery();
 
-            return getEntry(set).getProductId().intValue();
+            return getEntry(set).getProductId();
 
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException("Exception", e);

@@ -36,8 +36,8 @@ public class CompaniesServiceImpl implements CompaniesService {
         try {
             CompaniesDAO companiesDao = factory.getCompaniesDao();
             if (VALIDATE.isValid(companies)) {
-                Integer companyLastID = companiesDao.create(companies);
-                return companyLastID.longValue();
+                Long companyLastID = companiesDao.create(companies);
+                return companyLastID;
             } else {
                 throw new ValidationException("Validation Exception");
             }

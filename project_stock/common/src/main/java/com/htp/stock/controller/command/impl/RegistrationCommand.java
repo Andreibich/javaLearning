@@ -78,7 +78,7 @@ public class RegistrationCommand implements CommandInterface {
             String password = request.getParameter(PASSWORD);
             String phoneNumber = request.getParameter(PHONE_NUMBER);
             String email = request.getParameter(EMAIL);
-            Date creationDate = Date.valueOf(request.getParameter(CREATION_DATE));
+            String creationDate = request.getParameter(CREATION_DATE);
             String type = request.getParameter(TYPE);
 
 //            String secondName = request.getParameter(SECONDNAME_ATTRIBUTE);
@@ -103,19 +103,19 @@ public class RegistrationCommand implements CommandInterface {
                 request.setAttribute(ACTION, REDIRECT_ACTION_ATTRIBUTE);
 //                page = MANAGER.getProperty(PagePath.REGISTRATION.toString());
 
-            } else if (user.getType().equalsIgnoreCase(USER_ROLE)){
-                HttpSession session = request.getSession(true);
-                session.setAttribute(USER_ROLE, resultUser);
-//                page = MANAGER.getProperty(PagePath.RESULT.toString());
-                request.setAttribute(ACTION, REDIRECT_ACTION_ATTRIBUTE);
+//            } else if (user.getType().equalsIgnoreCase(USER_ROLE)){
+//                HttpSession session = request.getSession(true);
+//                session.setAttribute(USER_ROLE, resultUser);
+////                page = MANAGER.getProperty(PagePath.RESULT.toString());
+//                request.setAttribute(ACTION, REDIRECT_ACTION_ATTRIBUTE);
+//
+//            } else if (user.getType().equalsIgnoreCase(VIEWER_ROLE)){
+//                HttpSession session = request.getSession(true);
+//                session.setAttribute(VIEWER_ROLE, resultUser);
+////                page = MANAGER.getProperty(PagePath.RESULT.toString());
+//                request.setAttribute(ACTION, REDIRECT_ACTION_ATTRIBUTE);
 
-            } else if (user.getType().equalsIgnoreCase(VIEWER_ROLE)){
-                HttpSession session = request.getSession(true);
-                session.setAttribute(VIEWER_ROLE, resultUser);
-//                page = MANAGER.getProperty(PagePath.RESULT.toString());
-                request.setAttribute(ACTION, REDIRECT_ACTION_ATTRIBUTE);
-
-            } else if (user.getType().equalsIgnoreCase(ADMIN_ROLE)){
+            } else  /*(user.getType().equalsIgnoreCase(ADMIN_ROLE))*/{
                 HttpSession session = request.getSession(true);
                 session.setAttribute(ADMIN_ROLE, resultUser);
 //                page = MANAGER.getProperty(PagePath.RESULT.toString());

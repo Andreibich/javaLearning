@@ -23,7 +23,7 @@ public class LoginValidator implements ValidatorInterface<User> {
     }
 
     private static final String REGULAR_EXP_LOGIN = "[а-яА-Яa-zA-Z]{2,25}";
-    private static final String REGULAR_EXP_PASSWORD = "(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$";
+    private static final String REGULAR_EXP_PASSWORD = /*"(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$"*/"[а-яА-Яa-zA-Z]{2,25}";
 
     private static final Pattern patternLogin = Pattern.compile(REGULAR_EXP_LOGIN);
     private static final Pattern patternPassword = Pattern.compile(REGULAR_EXP_PASSWORD);

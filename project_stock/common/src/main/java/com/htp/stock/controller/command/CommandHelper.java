@@ -2,6 +2,7 @@ package com.htp.stock.controller.command;
 
 import com.htp.stock.controller.command.impl.LoginCommand;
 import com.htp.stock.controller.command.impl.RegistrationCommand;
+import com.htp.stock.controller.command.impl.TestCommand;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -18,6 +19,7 @@ public class CommandHelper {
     public CommandHelper() {
         commands.put(CommandName.AUTORIZATION, LoginCommand.getInstance());
         commands.put(CommandName.REGISTRATION, RegistrationCommand.getInstance());
+        commands.put(CommandName.TEST_COMMAND, TestCommand.getInstance());
     }
 
     /**
@@ -38,6 +40,6 @@ public class CommandHelper {
     }
 
     private enum CommandName {
-        AUTORIZATION, REGISTRATION;
+        AUTORIZATION, REGISTRATION, TEST_COMMAND;
     }
 }

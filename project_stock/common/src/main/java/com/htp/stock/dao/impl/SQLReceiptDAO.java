@@ -104,7 +104,7 @@ public class SQLReceiptDAO implements ReceiptDAO {
     }
 
     @Override
-    public int create(Receipt entity) throws DaoException {
+    public Long create(Receipt entity) throws DaoException {
         try (Connection connect = pool.getConnection();
              PreparedStatement statement = connect.prepareStatement(CREATE_NEW_RECEIPT)) {
             statement.setDate(1, entity.getReceiptDate());
@@ -118,7 +118,7 @@ public class SQLReceiptDAO implements ReceiptDAO {
             statement.executeUpdate();
             ResultSet set = statement.executeQuery();
 
-            return getEntry(set).getReceiptId().intValue();
+            return getEntry(set).getReceiptId();
 
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException("Exception", e);

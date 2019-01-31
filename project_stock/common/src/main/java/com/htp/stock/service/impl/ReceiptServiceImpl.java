@@ -36,8 +36,8 @@ public class ReceiptServiceImpl implements ReceiptService {
         try {
             ReceiptDAO receiptDao = factory.getReceiptDao();
             if (VALIDATE.isValid(receipt)) {
-                Integer receiptLastID = receiptDao.create(receipt);
-                return receiptLastID.longValue();
+                Long receiptLastID = receiptDao.create(receipt);
+                return receiptLastID;
             } else {
                 throw new ValidationException("Validation Exception");
             }

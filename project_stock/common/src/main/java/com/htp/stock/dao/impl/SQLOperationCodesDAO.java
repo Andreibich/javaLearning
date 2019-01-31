@@ -75,14 +75,14 @@ public class SQLOperationCodesDAO implements OperationCodesDAO {
     }
 
     @Override
-    public int create(OperationCodes entity) throws DaoException {
+    public Long create(OperationCodes entity) throws DaoException {
         try (Connection connect = pool.getConnection();
              PreparedStatement statement = connect.prepareStatement(CREATE_NEW_OPERATION_CODE)) {
             statement.setString(1, entity.getPurpose());
             statement.executeUpdate();
             ResultSet set = statement.executeQuery();
 
-            return getEntry(set).getOperationCodeId();
+            return getEntry(set).getOperationCodeId().longValue();
 
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException("Exception", e);

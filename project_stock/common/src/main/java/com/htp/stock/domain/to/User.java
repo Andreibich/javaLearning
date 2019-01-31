@@ -19,7 +19,7 @@ public class User implements Serializable {
     private String phoneNumber;
     private String email;
     private String type;
-    private Date creationDate;
+    private String creationDate;
 
     public User() {
     }
@@ -28,6 +28,7 @@ public class User implements Serializable {
         this.login = login;
         this.password = password;
     }
+
 
     public String getType() {
         return type;
@@ -97,11 +98,11 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public Date getCreationDate() {
+    public String getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -112,7 +113,6 @@ public class User implements Serializable {
 
         User user = (User) o;
 
-        if (userId != null ? !userId.equals(user.userId) : user.userId != null) return false;
         if (userName != null ? !userName.equals(user.userName) : user.userName != null) return false;
         if (surname != null ? !surname.equals(user.surname) : user.surname != null) return false;
         if (login != null ? !login.equals(user.login) : user.login != null) return false;
@@ -120,7 +120,8 @@ public class User implements Serializable {
         if (phoneNumber != null ? !phoneNumber.equals(user.phoneNumber) : user.phoneNumber != null) return false;
         if (email != null ? !email.equals(user.email) : user.email != null) return false;
         if (type != null ? !type.equals(user.type) : user.type != null) return false;
-        return creationDate != null ? creationDate.equals(user.creationDate) : user.creationDate == null;
+        if (creationDate != null ? !creationDate.equals(user.creationDate) : user.creationDate != null) return false;
+        return userId != null ? userId.equals(user.userId) : user.userId == null;
     }
 
     @Override

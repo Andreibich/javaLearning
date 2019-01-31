@@ -82,7 +82,7 @@ public class SQLCompaniesDAO implements CompaniesDAO {
     }
 
     @Override
-    public int create(Companies entity) throws DaoException {
+    public Long create(Companies entity) throws DaoException {
         try (Connection connect = pool.getConnection();
              PreparedStatement statement = connect.prepareStatement(CREATE_NEW_COMPANY)) {
             statement.setString(1, entity.getCompanyName());
@@ -90,7 +90,7 @@ public class SQLCompaniesDAO implements CompaniesDAO {
             statement.setString(3, entity.getAddress());
             ResultSet set = statement.executeQuery();
 
-            return getEntry(set).getCompanyId().intValue();
+            return getEntry(set).getCompanyId();
 
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException("Exception", e);

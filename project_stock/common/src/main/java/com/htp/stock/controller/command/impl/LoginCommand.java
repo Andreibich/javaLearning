@@ -73,23 +73,23 @@ public class LoginCommand implements CommandInterface {
                 request.setAttribute(ACTION, FORWARD_ACTION_ATTRIBUTE);
                 page = PagePath.INDEX;
 
-            } else {
-                if (user.getType().toLowerCase().equals(ADMIN_ROLE)) {
-                    User admin = new User();
-                    admin.setPassword(user.getPassword());
-                    admin.setLogin(user.getLogin());
-                    admin.setType(user.getType());
-                    session.setAttribute(ADMIN_ROLE, admin);
-                    page = PagePath.ADMIN;
-
-                } else if (user.getType().toLowerCase().equals(USER_ROLE)) {
-                    User userNew = new User();
-                    userNew.setType(user.getType());
-                    userNew.setLogin(user.getLogin());
-                    userNew.setPassword(user.getPassword());
-                    userNew.setUserId(user.getUserId());
-                    session.setAttribute(USER_ROLE, userNew);
-                    page = PagePath.RESULT;
+//            } else {
+//                if (user.getType().toLowerCase().equals(ADMIN_ROLE)) {
+//                    User admin = new User();
+//                    admin.setPassword(user.getPassword());
+//                    admin.setLogin(user.getLogin());
+//                    admin.setType(user.getType());
+//                    session.setAttribute(ADMIN_ROLE, admin);
+//                    page = PagePath.ADMIN;
+//
+//                } else if (user.getType().toLowerCase().equals(USER_ROLE)) {
+//                    User userNew = new User();
+//                    userNew.setType(user.getType());
+//                    userNew.setLogin(user.getLogin());
+//                    userNew.setPassword(user.getPassword());
+//                    userNew.setUserId(user.getUserId());
+//                    session.setAttribute(USER_ROLE, userNew);
+//                    page = PagePath.RESULT;
 
                 } else {
                     User viewer = new User();
@@ -103,13 +103,13 @@ public class LoginCommand implements CommandInterface {
 
 
                 request.setAttribute(ACTION, REDIRECT_ACTION_ATTRIBUTE);
-            }
-//        } catch (ValidationException e) {
+
+        } catch (/*ValidationException e*/ ServiceException e) {
             request.setAttribute(ERROR_FLAG, ERROR_FLAG_VALUE);
             request.setAttribute(ACTION, FORWARD_ACTION_ATTRIBUTE);
             page = PagePath.INDEX;
-        } catch (ServiceException e) {
-            throw new CommandException("Command Exception", e);
+//        } catch (ServiceException e) {
+//            throw new CommandException("Command Exception", e);
         }
 //        return MANAGER.getProperty(page.toString());
         return "ok";
