@@ -33,6 +33,42 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>index</servlet-name>
+        <jsp-file>/index.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>index</servlet-name>
+        <url-pattern>/index</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>userList</servlet-name>
+        <jsp-file>/WEB-INF/jsp/userList.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>userList</servlet-name>
+        <url-pattern>/userList</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>userCreation</servlet-name>
+        <jsp-file>/WEB-INF/jsp/userCreation.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>userCreation</servlet-name>
+        <url-pattern>/userCreation</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>admin</servlet-name>
+        <jsp-file>/WEB-INF/jsp/admin.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>admin</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>ApplicationViewAdmin</servlet-name>
         <jsp-file>/WEB-INF/jsp/admin/admin.jsp</jsp-file>
     </servlet>
