@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         id="WebApp_ID" version="2.5">
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <listener>
+        <listener-class>
+            com.htp.stock.listener.ConnectPoolListener
+        </listener-class>
+    </listener>
+
+    <servlet>
+        <display-name>FrontController</display-name>
+        <servlet-name>FrontController</servlet-name>
+        <servlet-class>com.htp.stock.controller.FrontController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FrontController</servlet-name>
+        <url-pattern>/FrontController</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>main</servlet-name>
+        <jsp-file>/WEB-INF/jsp/main.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>main</servlet-name>
+        <url-pattern>/FrontController/main</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>index</servlet-name>
+        <jsp-file>/index.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>index</servlet-name>
+        <url-pattern>/index</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>userList</servlet-name>
+        <jsp-file>/WEB-INF/jsp/userList.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>userList</servlet-name>
+        <url-pattern>/userList</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>companiesList</servlet-name>
+        <jsp-file>/WEB-INF/jsp/companiesList.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>companiesList</servlet-name>
+        <url-pattern>/companiesList</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>codesList</servlet-name>
+        <jsp-file>/WEB-INF/jsp/codesList.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>codesList</servlet-name>
+        <url-pattern>/codesList</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>receiptList</servlet-name>
+        <jsp-file>/WEB-INF/jsp/receiptList.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>receiptList</servlet-name>
+        <url-pattern>/receiptList</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>shipmentList</servlet-name>
+        <jsp-file>/WEB-INF/jsp/shipmentList.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>shipmentList</servlet-name>
+        <url-pattern>/shipmentList</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>stockResult</servlet-name>
+        <jsp-file>/WEB-INF/jsp/stockResult.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>stockResult</servlet-name>
+        <url-pattern>/stockResult</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>productList</servlet-name>
+        <jsp-file>/WEB-INF/jsp/productList.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>productList</servlet-name>
+        <url-pattern>/productList</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>userUpdate</servlet-name>
+        <jsp-file>/WEB-INF/jsp/userUpdate.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>userUpdate</servlet-name>
+        <url-pattern>/userUpdate</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>userMenu</servlet-name>
+        <jsp-file>/WEB-INF/jsp/userMenu.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>userMenu</servlet-name>
+        <url-pattern>/userMenu</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>gate</servlet-name>
+        <jsp-file>/WEB-INF/jsp/gate.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>gate</servlet-name>
+        <url-pattern>/gate</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>userCreation</servlet-name>
+        <jsp-file>/WEB-INF/jsp/userCreation.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>userCreation</servlet-name>
+        <url-pattern>/userCreation</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>admin</servlet-name>
+        <jsp-file>/WEB-INF/jsp/admin.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>admin</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ApplicationViewAdmin</servlet-name>
+        <jsp-file>/WEB-INF/jsp/admin/admin.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ApplicationViewAdmin</servlet-name>
+        <url-pattern>/appViewAdmin</url-pattern>
+    </servlet-mapping>
+
+    <session-config>
+        <session-timeout>10</session-timeout>
+    </session-config>
+
+    <!--Filters -->
+    <filter>
+        <display-name>CharsetFilter</display-name>
+        <filter-name>CharsetFilter</filter-name>
+        <filter-class>com.htp.stock.filter.CharsetFilter</filter-class>
+        <init-param>
+            <param-name>characterEncoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>CharsetFilter</filter-name>
+        <url-pattern>/FrontController</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <display-name>AdministratorSecurityFilter</display-name>
+        <filter-name>AdministratorSecurityFilter</filter-name>
+        <filter-class>com.htp.stock.filter.AdministratorSecurityFilter</filter-class>
+        <!--<init-param>-->
+        <!--<param-name>characterEncoding</param-name>-->
+        <!--<param-value>UTF-8</param-value>-->
+        <!--</init-param>-->
+    </filter>
+    <filter-mapping>
+        <filter-name>AdministratorSecurityFilter</filter-name>
+        <url-pattern>/appViewAdmin</url-pattern>
+    </filter-mapping>
+
+
+</web-app>
